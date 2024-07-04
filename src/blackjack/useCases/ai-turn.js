@@ -1,6 +1,7 @@
 import { pedirCarta } from "./get-card";
 import { valorCarta } from "./card-value";
 import { crearCartaHtml } from "./create-card-html";
+import Swal from "sweetalert2";
 
 /**
  * Turno IA
@@ -13,8 +14,8 @@ export const turnoComputadora = (puntosMinimos, puntosHTML, divCartasComputadora
 
     if (!puntosMinimos) throw new Error('puntosMinimos es necesario')
     if (!puntosHTML) throw new Error('puntosHTML es necesario')
-    
-        let puntosComputadora = 0;
+
+    let puntosComputadora = 0;
 
     do {
 
@@ -24,8 +25,11 @@ export const turnoComputadora = (puntosMinimos, puntosHTML, divCartasComputadora
         puntosHTML.innerText = puntosComputadora;
 
         const imgCarta = crearCartaHtml(carta);
-
         divCartasComputadora.append(imgCarta);
+        setTimeout(() => {
+            imgCarta.classList.add('entrada');
+        }, 150);
+
 
         if (puntosMinimos > 21) {
             break;
@@ -35,13 +39,34 @@ export const turnoComputadora = (puntosMinimos, puntosHTML, divCartasComputadora
 
     setTimeout(() => {
         if (puntosComputadora === puntosMinimos) {
-            alert('Nadie gana :(');
+            Swal.fire({
+                title: 'Empate!',
+                text: 'Nadie Gana',
+                icon: 'warning',
+                confirmButtonText: 'Continuar'
+            })
+
         } else if (puntosMinimos > 21) {
-            alert('Computadora gana')
+            Swal.fire({
+                title: 'Derrota!',
+                text: 'Gana la computadora',
+                icon: 'error',
+                confirmButtonText: 'Continuar'
+            })
         } else if (puntosComputadora > 21) {
-            alert('Jugador Gana');
+            Swal.fire({
+                title: 'Victoria!',
+                text: 'Gana el jugador',
+                icon: 'success',
+                confirmButtonText: 'Continuar'
+            })
         } else {
-            alert('Computadora Gana')
+            Swal.fire({
+                title: 'Derrota!',
+                text: 'Gana la computadora',
+                icon: 'error',
+                confirmButtonText: 'Continuar'
+            })
         }
-    }, 100);
+    }, 300);
 }

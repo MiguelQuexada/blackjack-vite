@@ -1,4 +1,4 @@
-import { crearDeck, pedirCarta, valorCarta, turnoComputadora, crearCartaHtml} from './useCases/index.js';
+import { crearDeck, pedirCarta, valorCarta, turnoComputadora, crearCartaHtml } from './useCases/index.js';
 
 let deck = [];
 const tipos = ['C', 'D', 'H', 'S'];
@@ -26,18 +26,20 @@ btnPedir.addEventListener('click', () => {
 
     puntosJugador = puntosJugador + valorCarta(carta);
     puntosHTML[0].innerText = puntosJugador;
-    
+
     const imgCarta = crearCartaHtml(carta);
     divCartasJugador.append(imgCarta);
+    setTimeout(() => {
+        imgCarta.classList.add('entrada');
+    }, 150);
+
 
     if (puntosJugador > 21) {
-        console.warn('Lo siento mucho, perdiste');
         btnPedir.disabled = true;
         btnDetener.disabled = true;
         turnoComputadora(puntosJugador, puntosHTML[1], divCartasComputadora, deck);
 
     } else if (puntosJugador === 21) {
-        console.warn('21, genial!');
         btnPedir.disabled = true;
         btnDetener.disabled = true;
         turnoComputadora(puntosJugador, puntosHTML[1], divCartasComputadora, deck);
@@ -55,7 +57,6 @@ btnDetener.addEventListener('click', () => {
 
 btnNuevo.addEventListener('click', () => {
 
-    console.clear();
     deck = [];
     deck = crearDeck(tipos, especiales);
 

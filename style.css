@@ -18,7 +18,16 @@ html, body {
   width: 150px;
   left: 100px;
   margin-left: -75px;
+  opacity: 0; /* Empezamos con la carta invisible */
+  transform: translateY(-20px); /* Desplazamos la carta hacia arriba */
+  transition: opacity 0.5s, transform 0.5s; /* Transición suave */
 }
+
+.carta.entrada {
+  opacity: 1; /* Hacemos la carta visible */
+  transform: translateY(0); /* La carta vuelve a su posición original */
+}
+
 
 #computadora-cartas, #jugador-cartas {
   height: 240px;
